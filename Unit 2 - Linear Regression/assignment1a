@@ -1,0 +1,37 @@
+
+ClimateChange = read.csv("climate_change.csv")
+str(ClimateChange)
+head(ClimateChange, 2)
+CC_train = subset(ClimateChange, Year <= 2006)
+CC_test = subset(ClimateChange, Year > 2006)
+TempReg = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data = CC_train)
+summary(TempReg)
+cor(CC_train)
+TempReg = lm(Temp ~ MEI + N2O + TSI + Aerosols, data = CC_train)
+TempReg = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data = CC_train)
+TempReg2 = lm(Temp ~ MEI + N2O + TSI + Aerosols, data = CC_train)
+summary(TempReg2)
+TempReg3 = step(TempReg)
+summary(TempReg3)
+TempPrediction = predict(TempReg3, newdata = CC_test)
+TempPrediction
+SSE = sum((CC_test$Temp - TempPrediction)^2)
+SST = sum((CC_test$Temp - mean(CC_train))^2)
+SST = sum((CC_test$Temp - mean(CC_train$Temp))^2)
+R-squared = 1 - SSE/SST
+R_squared = 1 - SSE/SST
+R_squared
+TempReg2 = lm(Temp ~ MEI + N2O + TSI + Aerosols, data = CC_train)
+TempReg = lm(Temp ~ MEI + CO2 + CH4 + N2O + CFC.11 + CFC.12 + TSI + Aerosols, data = CC_train)
+summary(TempReg)
+cor(CC_train)
+TempPrediction = predict(TempReg2, newdata = CC_test)
+TempPrediction = predict(TempReg3, newdata = CC_test)
+TempPrediction2 = predict(TempReg2, newdata = CC_test)
+SSE = sum((CC_test$Temp - TempPrediction2)^2)
+SST = sum((CC_test$Temp - mean(CC_train$Temp))^2)
+R_squared = 1 - SSE/SST
+R_squared
+summary(TempReg2)
+summary(TempReg3)
+summary(TempReg)
